@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Token</title>
+</head>
+<body>
+    <h1>Create Token</h1>
+    <form method="POST">
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required><br><br>
+        <label for="roles">Roles:</label>
+        <input type="text" id="roles" name="roles" required><br><br>
+        <button type="submit">Generate Token</button>
+    </form>
+    {% if token %}
+    <h2>Generated Token:</h2>
+    <p>{{ token }}</p>
+    {% endif %}
+<a href="{{ url_for('validate') }}">Validate Token</a>
+</body>
+</html>

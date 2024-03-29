@@ -1,0 +1,13 @@
+.env
+.venv
+/env
+*.pyc
+__pycache__/
+.vscode/
+.idea/
+.pycharm/
+logs/
+temp/
+**/__init__.py
+.idea
+reqs.txt
