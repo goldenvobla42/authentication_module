@@ -47,8 +47,9 @@ Here you can create token with user_id and roles. Also, you can add this token t
 
 Success paths are: 
 - create token -> copy it -> validate token
-- create and add token to local storage (with admin)-> go to admin page with token
-- - create and add token to local storage (without admin)-> go to admin page with token
+- create token with admin role -> go to admin page
+- create token withhout admin role -> go to admin page and see the error
+
 
 # Running Tests
 

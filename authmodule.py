@@ -14,12 +14,23 @@ class AuthModule:
             "roles": roles or [],
             "exp": expiry_time
         }
-        return jwt.encode(payload, self.secret_key, algorithm="HS512").encode()
+        return jwt.encode(payload, self.secret_key, algorithm="HS512")
+        #return jwt.encode(payload, self.private_key, algorithm="RS512")
 
-    def validate_token(self, token, user_id, role):
+    def validate_token(self, token):
+        try:
+            payload = jwt.decode(token, self.secret_key, algorithms=["HS256"])
+            expiry_time = datetime.fromtimestamp(payload["exp"])
+            return expiry_time > datetime.now()
+        except jwt.ExpiredSignatureError:
+            return False
+        except jwt.InvalidTokenError:
+            return False
+
+    def validate_token_role(self, token, role):
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=["HS512"])
-            if payload["user_id"] != user_id or role not in payload["roles"]:
+            if role not in payload["roles"]:
                 return False
             expiry_time = datetime.fromtimestamp(payload["exp"])
             return expiry_time > datetime.now()
@@ -27,3 +38,4 @@ class AuthModule:
             return False
         except jwt.InvalidTokenError:
             return False
+

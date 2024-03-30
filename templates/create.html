@@ -12,64 +12,13 @@
         <input type="text" id="roles" name="roles" required><br><br>
         <button type="submit">Create Token</button>
     </form>
-
     {% if token %}
     <h2>Generated Token:</h2>
     <p>{{ token }}</p>
     {% endif %}
 
-    <p><button onclick="createAndAddToken()">Create and Add Token to Local Storage</button> </p>
-    <script>
-        function createAndAddToken() {
-            const form = document.getElementById("create-form");
-            fetch("/createandadd", {
-                method: "POST",
-                body: new FormData(form)
-            })
-            .then(response => response.text())
-            .then(token => {
-                const cleanToken = token.replace(/"/g, '');
-                localStorage.setItem("token", cleanToken);
-                alert("Token added to local storage");
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Failed to create and add token to local storage");
-            });
-        }
-    </script>
-    <p><button onclick="sendRequestWithToken()">Go to Admin page with token</button></p>
-<script>
-function sendRequestWithToken() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        alert("Token not found in localStorage");
-        return;
-    }
+    <p><a href="/admin"><button onclick="sendRequestWithToken()">Admin page</button></a></p>
 
-    fetch("/admin", {
-        method: "GET",
-        headers: {
-            "Authorization": `${token}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Failed to fetch");
-        }
-        return response.text();
-    })
-    .then(data => {
-        document.open();
-        document.write(data);
-        document.close();
-    })
-    .catch(error => {
-        console.error(error);
-        alert("You have no access to admin party")
-    });
-}
-</script>
 
 <p><a href="{{ url_for('validate') }}">Validate Token</a></p>
 </body>

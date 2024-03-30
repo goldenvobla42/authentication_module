@@ -25,12 +25,24 @@ class AuthModuleAsym:
             "roles": roles or [],
             "exp": expiry_time
         }
-        return jwt.encode(payload, self.private_key, algorithm="RS256")
+        return jwt.encode(payload, self.private_key, algorithm="RS512")
 
-    def validate_token(self, token, user_id, role):
+    def validate_token(self, token):
         try:
-            payload = jwt.decode(token, self.public_key, algorithms=["RS256"])
-            if payload["user_id"] != user_id or role not in payload["roles"]:
+            payload = jwt.decode(token, self.public_key, algorithms=["RS512"])
+            expiry_time = datetime.fromtimestamp(payload["exp"])
+            return expiry_time > datetime.now()
+        except jwt.ExpiredSignatureError:
+            return False
+        except jwt.InvalidTokenError:
+            return False
+
+
+    def validate_token_role(self, token, role):
+        try:
+            payload = jwt.decode(token, self.public_key, algorithms=["RS512"])
+            expiry_time = payload.get("exp")
+            if role not in payload["roles"]:
                 return False
             expiry_time = datetime.fromtimestamp(payload["exp"])
             return expiry_time > datetime.now()
@@ -50,8 +62,10 @@ token = auth_module_asym.create_token(user_id, roles)
 print("Token:", token)
 
 # Validate the token
-is_valid = auth_module_asym.validate_token(token, user_id, "admin")
+is_valid = auth_module_asym.validate_token(token)
+is_valid_role = auth_module_asym.validate_token_role(token, "admin")
 print("Token is valid:", is_valid)
+print("Token has role:", is_valid_role)
 
 # Get public key for verification
 public_key = auth_module_asym.get_public_key()
