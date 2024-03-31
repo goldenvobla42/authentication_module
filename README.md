@@ -61,8 +61,4 @@ python unittests.py
 
 # Implementation with asymmetric signing
 
-Implementation with asymmetric signing is not integrated to web application and covered with unittests (yet). 
-So, please, use the following command to see how it works:
-```bash
-python authmodule_asym.py
-```
+Implementation with asymmetric signing is not integrated to web application (yet). 
