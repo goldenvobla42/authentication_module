@@ -12,14 +12,13 @@ class AuthModule:
         payload = {
             "user_id": user_id,
             "roles": roles or [],
-            "exp": expiry_time
+            "exp": expiry_time.timestamp()
         }
         return jwt.encode(payload, self.secret_key, algorithm="HS512")
-        #return jwt.encode(payload, self.private_key, algorithm="RS512")
 
     def validate_token(self, token):
         try:
-            payload = jwt.decode(token, self.secret_key, algorithms=["HS256"])
+            payload = jwt.decode(token, self.secret_key, algorithms=["HS512"])
             expiry_time = datetime.fromtimestamp(payload["exp"])
             return expiry_time > datetime.now()
         except jwt.ExpiredSignatureError:

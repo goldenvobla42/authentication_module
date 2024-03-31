@@ -23,7 +23,7 @@ class AuthModuleAsym:
         payload = {
             "user_id": user_id,
             "roles": roles or [],
-            "exp": expiry_time
+            "exp": expiry_time.timestamp()
         }
         return jwt.encode(payload, self.private_key, algorithm="RS512")
 
@@ -52,21 +52,3 @@ class AuthModuleAsym:
             return False
 
 
-# Example usage
-auth_module_asym = AuthModuleAsym()
-
-# Create a token
-user_id = "user123"
-roles = ["admin", "user"]
-token = auth_module_asym.create_token(user_id, roles)
-print("Token:", token)
-
-# Validate the token
-is_valid = auth_module_asym.validate_token(token)
-is_valid_role = auth_module_asym.validate_token_role(token, "admin")
-print("Token is valid:", is_valid)
-print("Token has role:", is_valid_role)
-
-# Get public key for verification
-public_key = auth_module_asym.get_public_key()
-print("Public key:", public_key)

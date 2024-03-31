@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, abort, jsonify, make_response
 from functools import wraps
 from authmodule import AuthModule
+from authmodule_asym import AuthModuleAsym
 import os
 import jwt
 import logging
@@ -9,6 +10,7 @@ import logging
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 auth_module = AuthModule(app.config["SECRET_KEY"])
+auth_module_asym = AuthModuleAsym()
 
 logging.basicConfig(level=logging.INFO)
 
