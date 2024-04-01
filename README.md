@@ -46,7 +46,7 @@ Here you can create token with user_id and roles. Also, you can add this token t
 - Access the admin page (requires admin role in token): http://127.0.0.1:8080/admin
 - Access the admin page (requires admin role in token) - for Asym module:http://127.0.0.1:5000/admin_asym
 
-![Screenshot 2024-04-01 at 20.12.06.png](screenshots/Screenshot%202024-04-01%20at%2020.12.06.png))
+![Screenshot 2024-04-01 at 20.12.06.png](screenshots/Screenshot%202024-04-01%20at%2020.11.36.png)
 ![Screenshot 2024-04-01 at 20.12.06.png](screenshots/Screenshot%202024-04-01%20at%2020.12.06.png)
 
 
