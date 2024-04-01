@@ -44,11 +44,12 @@ In web application you can:
 Here you can create token with user_id and roles. Also, you can add this token to localstorage. And you can try access to admin page. 
 - Validate a token: http://127.0.0.1:8080/validate
 - Access the admin page (requires admin role in token): http://127.0.0.1:8080/admin
+- Access the admin page (requires admin role in token) - for Asym module:http://127.0.0.1:5000/admin_asym
 
 Success paths are: 
 - create token -> copy it -> validate token
-- create token with admin role -> go to admin page
-- create token withhout admin role -> go to admin page and see the error
+- create token with admin role -> go to admin page (for sym and asym cases)
+- create token withhout admin role -> go to admin page and see the error (for sym and asym cases)
 
 
 # Running Tests
@@ -58,6 +59,7 @@ To run the unit tests, use the following command:
 ```bash
 python unittests.py
 ```
+Note: set SECRET_KEY as env variable before tests running.
 
 # Implementation with asymmetric signing
 

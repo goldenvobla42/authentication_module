@@ -2,9 +2,19 @@
 <html>
 <head>
     <title>Create Token</title>
+    <style>
+        .red-line {
+            background: linear-gradient(to right, transparent, red, transparent);
+            height: 2px;
+            margin: 20px 0;
+            padding: 0;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Create Token</h1>
+    <h3>Authentication Module</h3>
     <form id="create-form" method="POST">
         <label for="user_id">User ID:</label>
         <input type="text" id="user_id" name="user_id" required><br><br>
@@ -12,12 +22,30 @@
         <input type="text" id="roles" name="roles" required><br><br>
         <button type="submit">Create Token</button>
     </form>
-    {% if token %}
+
+        {% if token %}
     <h2>Generated Token:</h2>
     <p>{{ token }}</p>
     {% endif %}
 
-    <p><a href="/admin"><button onclick="sendRequestWithToken()">Admin page</button></a></p>
+<hr class="red-line">
+    <h3>Asymmetric Authentication Module</h3>
+    <form method="POST" action="{{ url_for('create_asym') }}">
+        <label for="user_id_asym">User ID:</label>
+        <input type="text" id="user_id_asym" name="user_id_asym" required><br><br>
+        <label for="roles_asym">Roles (comma-separated):</label>
+        <input type="text" id="roles_asym" name="roles_asym" required><br><br>
+        <button type="submit">Create Token (Asymmetric)</button>
+    </form>
+
+    {% if token_asym %}
+    <h2>Generated Token:</h2>
+    <p>{{ token_asym }}</p>
+    {% endif %}
+
+<hr class="red-line">
+    <p><a href="/admin"><button onclick="sendRequestWithToken()">Admin page</button></a>
+        <a href="/admin_asym"><button onclick="sendRequestWithToken()">Admin page (if Asymmetric)</button></a></p>
 
 
 <p><a href="{{ url_for('validate') }}">Validate Token</a></p>
