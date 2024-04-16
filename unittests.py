@@ -12,7 +12,6 @@ class TestAuthModule(unittest.TestCase):
         self.secret_key = os.getenv("SECRET_KEY")
         self.authmodule = AuthModule(self.secret_key)
 
-
     def test_create_token(self):
         user_id = "user123"
         roles = ["admin", "user"]
@@ -54,7 +53,6 @@ class TestAuthModule(unittest.TestCase):
         valid = self.authmodule.validate_token(token)
         self.assertFalse(valid, "Token should be invalid due to expiration")
 
-
     def test_validate_token_invalid_signature(self):
         user_id = "user123"
         roles = ["admin", "user"]
@@ -63,9 +61,11 @@ class TestAuthModule(unittest.TestCase):
         is_valid = self.authmodule.validate_token(token)
         self.assertFalse(is_valid)
 
+
 class TestAuthModuleAsym(unittest.TestCase):
     def setUp(self):
         self.auth_module_asym = AuthModuleAsym()
+
     def test_create_token(self):
         user_id = "user123"
         roles = ["admin", "user"]

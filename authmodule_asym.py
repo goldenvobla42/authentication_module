@@ -5,6 +5,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
+
 class AuthModuleAsym:
     def __init__(self, private_key=None, public_key=None):
         self.private_key = private_key or rsa.generate_private_key(
@@ -31,7 +32,6 @@ class AuthModuleAsym:
         except jwt.InvalidTokenError:
             return False
 
-
     def validate_token_role(self, token, role):
         try:
             payload = jwt.decode(token, self.public_key, algorithms=["RS512"])
@@ -44,5 +44,3 @@ class AuthModuleAsym:
             return False
         except jwt.InvalidTokenError:
             return False
-
-

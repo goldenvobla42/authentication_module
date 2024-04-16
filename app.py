@@ -53,6 +53,7 @@ def requires_role_asym(role):
         return decorated_function
     return decorator
 
+
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
@@ -76,6 +77,7 @@ def create():
 def validate():
     return render_template("validate.html")
 
+
 @app.route("/validate_sym", methods=["GET", "POST"])
 def validate_sym():
     is_valid = None
@@ -86,6 +88,7 @@ def validate_sym():
         if token:
             is_valid = auth_module.validate_token(token.encode())
     return render_template("validate.html", is_valid=is_valid)
+
 
 @app.route("/create_asym", methods=["GET", "POST"])
 def create_asym():
@@ -102,9 +105,10 @@ def create_asym():
             return response
     return render_template("create.html")
 
+
 @app.route("/validate_asym", methods=["GET", "POST"])
 def validate_asym():
-    is_valid = None
+    is_valid_asym = None
     if request.method == "GET":
         return redirect(url_for('validate'))
     if request.method == "POST":
@@ -113,10 +117,12 @@ def validate_asym():
             is_valid_asym = auth_module_asym.validate_token(token.encode())
     return render_template("validate.html", is_valid_asym=is_valid_asym)
 
+
 @app.route("/admin", methods=["GET"])
 @requires_role("admin")
 def admin():
     return render_template("admin.html")
+
 
 @app.route("/admin_asym", methods=["GET"])
 @requires_role_asym("admin")

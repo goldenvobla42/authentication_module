@@ -37,4 +37,3 @@ class AuthModule:
             return False
         except jwt.InvalidTokenError:
             return False
-
