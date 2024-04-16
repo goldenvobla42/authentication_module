@@ -12,12 +12,6 @@ class AuthModuleAsym:
         )
         self.public_key = public_key or self.private_key.public_key()
 
-    def get_public_key(self):
-        return self.public_key.public_bytes(
-            encoding=serialization.Encoding.PEM,
-            format=serialization.PublicFormat.SubjectPublicKeyInfo
-        ).decode()
-
     def create_token(self, user_id, roles=None, expiry_time_minutes=30):
         expiry_time = datetime.now() + timedelta(minutes=expiry_time_minutes)
         payload = {
